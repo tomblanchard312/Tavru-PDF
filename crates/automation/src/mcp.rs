@@ -1,13 +1,13 @@
 //! A Model Context Protocol server over the automation tools.
 //!
 //! **Opt-in only.** Nothing in PdfCraft starts this server on its own: it runs when a user
-//! launches `pdfcraft-cli mcp` (usually by adding that command to their agent's MCP
+//! launches `nabu-cli mcp` (usually by adding that command to their agent's MCP
 //! configuration), and stops when its input closes. It opens no network port; the transport is
 //! newline-delimited JSON-RPC 2.0 over stdin/stdout.
 //!
 //! Implemented: `initialize`, `ping`, `tools/list`, `tools/call`, `resources/list`,
 //! `resources/templates/list`, `resources/read`, and the `notifications/*` the client sends.
-//! Resources expose the open documents read-only: `pdfcraft://doc/{doc}/info` (JSON),
+//! Resources expose the open documents read-only: `nabu://doc/{doc}/info` (JSON),
 //! `…/text` (plain text), `…/page/{page}/text` and `…/page/{page}/image` (PNG; `?dpi=` 1–600). Tool failures are reported in the result (`isError: true`) so the agent can read
 //! them; protocol errors use JSON-RPC error codes.
 
@@ -33,7 +33,7 @@ pub const MAX_LINE_BYTES: usize = 16 * 1024 * 1024;
 const INSTRUCTIONS: &str = "PdfCraft edits PDFs. Open a file with doc_open to get a document id, then inspect \
 (doc_info, text_extract, text_find, page_render) or edit it (page_*, doc_set_info). Edits are undoable \
 (edit_undo) and stay in memory until doc_save. Page numbers are 1-based. Open documents are also \
-resources: pdfcraft://doc/{doc}/info, /text, /page/{page}/text and /page/{page}/image. \
+resources: nabu://doc/{doc}/info, /text, /page/{page}/text and /page/{page}/image. \
 command_list discovers command ids and tool schemas; command_run executes one, command_batch runs several. \
 doc_inspect returns open document state; render_preview returns a bounded PNG.";
 
@@ -153,7 +153,7 @@ impl McpServer {
                 Ok(json!({
                     "protocolVersion": version,
                     "capabilities": { "tools": { "listChanged": false }, "resources": { "listChanged": false, "subscribe": false } },
-                    "serverInfo": { "name": "pdfcraft", "title": "PdfCraft", "version": env!("CARGO_PKG_VERSION"), "websiteUrl": pdfcraft_engine::links::APP_PAGE },
+                    "serverInfo": { "name": "nabu", "title": "Parchfold", "version": env!("CARGO_PKG_VERSION"), "websiteUrl": pdfcraft_engine::links::GITHUB },
                     "instructions": if self.compact { format!("{INSTRUCTIONS}{COMPACT_INSTRUCTIONS}") } else { INSTRUCTIONS.to_string() },
                 }))
             }
@@ -424,7 +424,7 @@ fn tool_error(message: &str) -> Value {
     json!({ "content": [{ "type": "text", "text": message }], "isError": true })
 }
 
-/// The resource behind a `pdfcraft://` URI.
+/// The resource behind a `nabu://` URI.
 #[derive(Debug, PartialEq)]
 enum Resource {
     Info(u64),
@@ -434,7 +434,7 @@ enum Resource {
 }
 
 fn parse_uri(uri: &str) -> Option<Resource> {
-    let rest = uri.strip_prefix("pdfcraft://doc/")?;
+    let rest = uri.strip_prefix("nabu://doc/")?;
     let (path, query) = rest.split_once('?').unwrap_or((rest, ""));
     let dpi = query.split('&').find_map(|kv| kv.strip_prefix("dpi=")).and_then(|v| v.parse::<f64>().ok());
     let parts: Vec<&str> = path.split('/').collect();
@@ -450,13 +450,13 @@ fn parse_uri(uri: &str) -> Option<Resource> {
 
 fn resource_templates() -> Value {
     json!([
-        { "uriTemplate": "pdfcraft://doc/{doc}/info", "name": "Document information", "mimeType": "application/json",
+        { "uriTemplate": "nabu://doc/{doc}/info", "name": "Document information", "mimeType": "application/json",
           "description": "Metadata, pages, bookmarks, annotations, fields, links, layers, attachments, fonts and security of an open document (as doc_info)." },
-        { "uriTemplate": "pdfcraft://doc/{doc}/text", "name": "Document text", "mimeType": "text/plain",
+        { "uriTemplate": "nabu://doc/{doc}/text", "name": "Document text", "mimeType": "text/plain",
           "description": "The text of every page in reading order, each page under a \"Page n\" heading." },
-        { "uriTemplate": "pdfcraft://doc/{doc}/page/{page}/text", "name": "Page text", "mimeType": "text/plain",
+        { "uriTemplate": "nabu://doc/{doc}/page/{page}/text", "name": "Page text", "mimeType": "text/plain",
           "description": "The text of one page (1-based) in reading order." },
-        { "uriTemplate": "pdfcraft://doc/{doc}/page/{page}/image{?dpi}", "name": "Page image", "mimeType": "image/png",
+        { "uriTemplate": "nabu://doc/{doc}/page/{page}/image{?dpi}", "name": "Page image", "mimeType": "image/png",
           "description": "One page (1-based) rendered to PNG; dpi 1–600, default 96." },
     ])
 }
@@ -470,29 +470,29 @@ impl McpServer {
         let mut out = Vec::new();
         for d in docs.unwrap_or_default() {
             let (id, name) = (d["doc"].as_u64().unwrap_or(0), d["name"].as_str().unwrap_or("document"));
-            out.push(json!({ "uri": format!("pdfcraft://doc/{id}/info"), "name": format!("{name} (information)"), "mimeType": "application/json" }));
-            out.push(json!({ "uri": format!("pdfcraft://doc/{id}/text"), "name": format!("{name} (text)"), "mimeType": "text/plain" }));
+            out.push(json!({ "uri": format!("nabu://doc/{id}/info"), "name": format!("{name} (information)"), "mimeType": "application/json" }));
+            out.push(json!({ "uri": format!("nabu://doc/{id}/text"), "name": format!("{name} (text)"), "mimeType": "text/plain" }));
             // Pages are listed for short documents; longer ones use the templates.
             let pages = d["pages"].as_u64().unwrap_or(0);
             if pages <= 50 {
                 for p in 1..=pages {
                     out.push(
-                        json!({ "uri": format!("pdfcraft://doc/{id}/page/{p}/image"), "name": format!("{name}, page {p}"), "mimeType": "image/png" }),
+                        json!({ "uri": format!("nabu://doc/{id}/page/{p}/image"), "name": format!("{name}, page {p}"), "mimeType": "image/png" }),
                     );
                 }
             }
         }
         out.extend([
-            json!({"uri":"pdfcraft://document","name":"Open documents","mimeType":"application/json","description":"Session document state, as doc_inspect without arguments."}),
-            json!({"uri":"pdfcraft://commands","name":"Command catalog","mimeType":"application/json","description":"Commands and mapped tool schemas, as command_list without arguments."}),
+            json!({"uri":"nabu://document","name":"Open documents","mimeType":"application/json","description":"Session document state, as doc_inspect without arguments."}),
+            json!({"uri":"nabu://commands","name":"Command catalog","mimeType":"application/json","description":"Commands and mapped tool schemas, as command_list without arguments."}),
         ]);
         out
     }
 
     fn read_resource(&mut self, uri: &str) -> Result<Value, (i64, String)> {
         if let Some(tool) = match uri {
-            "pdfcraft://document" => Some("doc_inspect"),
-            "pdfcraft://commands" => Some("command_list"),
+            "nabu://document" => Some("doc_inspect"),
+            "nabu://commands" => Some("command_list"),
             _ => None,
         } {
             let content = self.automation.call(tool, &json!({})).map_err(|e| (INVALID_PARAMS, e.to_string()))?;
@@ -653,7 +653,7 @@ mod tests {
         assert_eq!(replies[0]["error"]["code"], -32700);
         assert_eq!(replies[1]["error"]["code"], -32600);
         assert_eq!(replies[2]["id"], 1);
-        assert_eq!(replies[2]["result"]["serverInfo"]["name"], "pdfcraft");
+        assert_eq!(replies[2]["result"]["serverInfo"]["name"], "nabu");
     }
 
     #[test]
@@ -670,10 +670,10 @@ mod tests {
 
     #[test]
     fn resource_uris_parse() {
-        assert_eq!(parse_uri("pdfcraft://doc/3/info"), Some(Resource::Info(3)));
-        assert_eq!(parse_uri("pdfcraft://doc/3/page/2/image?dpi=36"), Some(Resource::PageImage(3, 2, Some(36.0))));
-        assert_eq!(parse_uri("pdfcraft://doc/3/page/2/text"), Some(Resource::PageText(3, 2)));
-        assert_eq!(parse_uri("pdfcraft://doc/x/info"), None);
+        assert_eq!(parse_uri("nabu://doc/3/info"), Some(Resource::Info(3)));
+        assert_eq!(parse_uri("nabu://doc/3/page/2/image?dpi=36"), Some(Resource::PageImage(3, 2, Some(36.0))));
+        assert_eq!(parse_uri("nabu://doc/3/page/2/text"), Some(Resource::PageText(3, 2)));
+        assert_eq!(parse_uri("nabu://doc/x/info"), None);
         assert_eq!(parse_uri("file:///etc/passwd"), None);
     }
 }

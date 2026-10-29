@@ -1,5 +1,7 @@
 # PdfCraft roadmap
 
+> **Naming update: 2026-10-29** · Nabu is now Parchfold. Existing user data, installation identities and automation interfaces are retained; readiness estimates are unchanged.
+
 **Stage: alpha** · next: beta, ~25% (ready for real work 50% → 75%) and ~400–700 h away
 
 > **Last reviewed:** 2026-10-27 | **Last updated:** 2026-10-27 | **Change:** minor (M10: OCR model downloads use verified ONNX pairs with legacy discovery fallback; estimates unchanged)
