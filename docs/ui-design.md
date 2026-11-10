@@ -11,7 +11,7 @@ the platform.
 - An open PDF owns the canvas. Tabs identify the active document, and panels expose tools
   and document details without changing the document’s typefaces.
 - Open and save failures surface through the existing error UI. Closing edited documents
-  offers a save decision. Enki speech is optional and belongs to the document workspace.
+  offers a save decision. Oqelith speech is optional and belongs to the document workspace.
 
 Parchfold maps the light and dark semantic colors into its egui theme, including copper
 primary actions and River Blue accents. It uses Inter and JetBrains Mono for UI and code,

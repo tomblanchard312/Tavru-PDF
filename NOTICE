@@ -77,7 +77,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Enki shared SDK (client, protocol and speech controls)
+Oqelith shared SDK (client, protocol and speech controls)
 ======================================================
 
 MIT License
@@ -169,13 +169,13 @@ of Data, including for example machine learning models and models'
 insights.
 
 
-Enki companion runtime (applies only when its binaries are distributed):
+Oqelith companion runtime (applies only when its binaries are distributed):
 
-Enki Runtime Binary Distribution License
+Oqelith Runtime Binary Distribution License
 Copyright (c) 2026 tomblanchard312
 
 Permission is granted, worldwide, perpetually, non-exclusively and royalty-free,
-to use, copy and redistribute official compiled Enki daemon and inference-worker
+to use, copy and redistribute official compiled Oqelith daemon and inference-worker
 binaries supplied by tomblanchard312, including their accompanying installation
 and launch helpers, as part of, or as a companion runtime for, applications
 maintained or distributed by tomblanchard312. This permission includes commercial
@@ -189,14 +189,14 @@ but may not change the functionality of the compiled first-party binaries under
 this grant. This license does not require publication of application source code.
 
 This is a binary distribution grant, not a source-code license. No permission is
-granted to publish or redistribute the private Enki daemon or worker implementation
+granted to publish or redistribute the private Oqelith daemon or worker implementation
 source code. Ownership remains with its respective copyright holders. All rights
 not expressly granted are reserved.
 
 The MIT licenses of sharedai-client, sharedai-protocol and enki-speech-ui remain
 unchanged. Third-party software and model files remain governed by their own
 licenses; this grant neither replaces nor limits those licenses. Model weights
-are not included in this grant. Enki branding remains subject to the separate
+are not included in this grant. Oqelith branding remains subject to the separate
 branding license; this grant conveys no additional trademark rights.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -206,8 +206,7 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTIO
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Enki companion character: Copyright (c) 2026 tomblanchard312.
-Original AI-assisted artwork; MIT license in assets/icons/LICENSE-enki-character.txt.
+Oqelith mark (`assets/icons/oqelith.png`): TavruOS project artwork, the same export as Tavru Docs. See ATTRIBUTION.md.
 
 MIT License
 
@@ -231,7 +230,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Eridu interface assets (eridu-style at d3b4cdc03706ac100fae2de907282575652b76ad)
+Tavru interface assets (tavru-style at d3b4cdc03706ac100fae2de907282575652b76ad)
 
 Phosphor Regular and Fill
 

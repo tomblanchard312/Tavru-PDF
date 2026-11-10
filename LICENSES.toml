@@ -164,11 +164,6 @@ destination = "assets/app-icon/LICENSE-nabu.txt"
 sha256 = "972965ced22d1cc89ca7f23f870e897e3ca843f2f8f3f5265e1a5ac680497fe7"
 
 [[document]]
-source = "assets/icons/LICENSE-enki-character.txt"
-destination = "assets/icons/LICENSE-enki-character.txt"
-sha256 = "5785655998246227d34920c2e01a91f671831c96cdc9bd9deb8ad1e23d7475e9"
-
-[[document]]
 source = "assets/icons/LICENSE-phosphor.txt"
 destination = "assets/icons/LICENSE-phosphor.txt"
 sha256 = "b5b1f1da112d18ea2147decfd48ddc1bf2b5aeb6c265381579340e95b15a2bb2"

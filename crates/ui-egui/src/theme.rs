@@ -71,61 +71,33 @@ pub struct Tokens {
 }
 
 impl Tokens {
-    // Eridu Design System colors.json at 53133f86434676a5bdcb249556d3c11b50e600e4.
     pub fn for_kind(kind: ThemeKind) -> Self {
-        match kind {
-            ThemeKind::Light => Self {
-                kind,
-                titlebar: Color32::from_rgb(0xF1, 0xEE, 0xE8),
-                chrome: Color32::from_rgb(0xFF, 0xFF, 0xFF),
-                panel: Color32::from_rgb(0xFF, 0xFF, 0xFF),
-                pasteboard: Color32::from_rgb(0xFA, 0xF9, 0xF6),
-                card: Color32::from_rgb(0xFF, 0xFF, 0xFF),
-                border: Color32::from_rgb(0xC7, 0xCD, 0xD0),
-                divider: Color32::from_rgb(0xC7, 0xCD, 0xD0),
-                text: Color32::from_rgb(0x20, 0x2C, 0x33),
-                text_muted: Color32::from_rgb(0x47, 0x59, 0x62),
-                text_faint: Color32::from_rgb(0x47, 0x59, 0x62),
-                icon: Color32::from_rgb(0x47, 0x59, 0x62),
-                hover: Color32::from_rgb(0xEE, 0xF3, 0xF4),
-                pressed: Color32::from_rgb(0xE3, 0xEE, 0xF1),
-                selected: Color32::from_rgb(0xE3, 0xEE, 0xF1),
-                accent: Color32::from_rgb(0x24, 0x6B, 0x83),
-                accent_text: Color32::from_rgb(0x24, 0x6B, 0x83),
-                accent_soft: Color32::from_rgb(0xE3, 0xEE, 0xF1),
-                primary: Color32::from_rgb(0x94, 0x59, 0x2C),
-                on_primary: Color32::from_rgb(0xFF, 0xFF, 0xFF),
-                field: Color32::from_rgb(0xF1, 0xEE, 0xE8),
-                badge_new: Color32::from_rgb(0x24, 0x6B, 0x83),
-                page_shadow: Color32::from_black_alpha(34),
-                radius: 8,
-            },
-            ThemeKind::Dark => Self {
-                kind,
-                titlebar: Color32::from_rgb(0x29, 0x3A, 0x43),
-                chrome: Color32::from_rgb(0x20, 0x2C, 0x33),
-                panel: Color32::from_rgb(0x20, 0x2C, 0x33),
-                pasteboard: Color32::from_rgb(0x17, 0x23, 0x2B),
-                card: Color32::from_rgb(0x20, 0x2C, 0x33),
-                border: Color32::from_rgb(0x71, 0x81, 0x8A),
-                divider: Color32::from_rgb(0x71, 0x81, 0x8A),
-                text: Color32::from_rgb(0xF7, 0xF7, 0xF4),
-                text_muted: Color32::from_rgb(0xD0, 0xD9, 0xDE),
-                text_faint: Color32::from_rgb(0xD0, 0xD9, 0xDE),
-                icon: Color32::from_rgb(0xD0, 0xD9, 0xDE),
-                hover: Color32::from_rgb(0x25, 0x37, 0x40),
-                pressed: Color32::from_rgb(0x30, 0x50, 0x5F),
-                selected: Color32::from_rgb(0x30, 0x50, 0x5F),
-                accent: Color32::from_rgb(0x83, 0xC9, 0xE0),
-                accent_text: Color32::from_rgb(0x83, 0xC9, 0xE0),
-                accent_soft: Color32::from_rgb(0x30, 0x50, 0x5F),
-                primary: Color32::from_rgb(0xE0, 0xA4, 0x72),
-                on_primary: Color32::from_rgb(0x10, 0x23, 0x2D),
-                field: Color32::from_rgb(0x29, 0x3A, 0x43),
-                badge_new: Color32::from_rgb(0x83, 0xC9, 0xE0),
-                page_shadow: Color32::from_black_alpha(120),
-                radius: 8,
-            },
+        let p = if kind == ThemeKind::Dark { eridu_style::DARK } else { eridu_style::LIGHT };
+        Self {
+            kind,
+            titlebar: p.chrome,
+            chrome: p.surface,
+            panel: p.surface,
+            pasteboard: p.background,
+            card: p.surface_subtle,
+            border: p.border,
+            divider: p.border,
+            text: p.text,
+            text_muted: p.text_muted,
+            text_faint: p.text_muted,
+            icon: p.text_muted,
+            hover: p.surface_hover,
+            pressed: p.selected,
+            selected: p.selected,
+            accent: p.accent,
+            accent_text: p.accent_text,
+            accent_soft: p.selected,
+            primary: p.primary,
+            on_primary: p.on_primary,
+            field: p.surface_subtle,
+            badge_new: p.accent_text,
+            page_shadow: Color32::from_black_alpha(if p.dark { 120 } else { 34 }),
+            radius: eridu_style::radius::CONTROL,
         }
     }
 
@@ -489,7 +461,7 @@ pub fn apply(ctx: &egui::Context, kind: ThemeKind) {
     v.hyperlink_color = t.accent_text;
     v.override_text_color = Some(t.text);
     v.window_corner_radius = CornerRadius::same(10);
-    v.menu_corner_radius = CornerRadius::same(8);
+    v.menu_corner_radius = CornerRadius::same(eridu_style::radius::CONTROL);
     v.window_shadow = egui::Shadow { offset: [0, 8], blur: 28, spread: 0, color: Color32::from_black_alpha(if t.dark() { 110 } else { 38 }) };
     v.popup_shadow = egui::Shadow { offset: [0, 4], blur: 16, spread: 0, color: Color32::from_black_alpha(if t.dark() { 90 } else { 30 }) };
     for w in [&mut v.widgets.noninteractive, &mut v.widgets.inactive, &mut v.widgets.hovered, &mut v.widgets.active, &mut v.widgets.open] {

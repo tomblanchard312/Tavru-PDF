@@ -1572,7 +1572,7 @@ fn dialog_about(ui: &mut egui::Ui, req: &mut Pending) -> bool {
             ui.label(tl!("A clean-room, open-source PDF application written in Rust. MIT OR Apache-2.0."));
             ui.label(egui::RichText::new(tl!("Based on PdfCraft.")).color(t.text_muted));
             ui.horizontal(|ui| {
-                crate::widgets::icons::enki_badge(ui);
+                crate::widgets::icons::oqelith_badge(ui);
                 ui.hyperlink_to("Oqelith · shared local AI runtime", "https://github.com/tomblanchard312/Oqelith");
             });
             ui.label(
