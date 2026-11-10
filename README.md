@@ -1,8 +1,10 @@
+> **Product name:** Tavru PDF (formerly Parchfold, Nabu). Existing application IDs, settings directories, command names and repository URLs remain compatible.
+
 <p align="center">
-  <img src="assets/app-icon/nabu-logo.png" width="460" alt="Parchfold: blue folded-document N logo">
+  <img src="assets/app-icon/nabu-logo.png" width="460" alt="Tavru PDF: blue folded-document N logo">
 </p>
 
-<h1 align="center">Parchfold</h1>
+<h1 align="center">Tavru PDF</h1>
 
 <p align="center">
   <b>A PDF workbench forked from PdfCraft; an open-source, modern PDF reader and editor, built in pure Rust.</b><br>
@@ -33,7 +35,7 @@
 </p>
 
 > [!NOTE]
-> Parchfold is a fork of [PdfCraft](https://github.com/storytold/pdfcraft). It does not install
+> Tavru PDF is a fork of [PdfCraft](https://github.com/storytold/pdfcraft). It does not install
 > PdfCraft releases. Source and issues: [github.com/tomblanchard312/Parchfold](https://github.com/tomblanchard312/Parchfold).
 
 <p align="center">

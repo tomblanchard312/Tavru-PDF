@@ -29,8 +29,8 @@ fn github_button_in_the_top_bar_opens_the_repository() {
 #[test]
 fn home_screen_links() {
     let mut h = harness(|_| {});
-    h.get_by_label("Welcome to Parchfold");
-    h.get_by_label("Parchfold on GitHub").click();
+    h.get_by_label("Welcome to Tavru PDF");
+    h.get_by_label("Tavru PDF on GitHub").click();
     h.run_steps(2);
     assert_eq!(h.state().last_opened_url.as_deref(), Some(links::GITHUB));
     assert!(h.query_by_label("Discord").is_none());
@@ -45,7 +45,7 @@ fn home_community_card_closes_for_this_run() {
     h.run_steps(2);
     assert!(h.state().community_card_closed);
     assert!(h.query_by_label("Source and issues are on GitHub.").is_none());
-    assert!(h.query_by_label("Parchfold on GitHub").is_none());
+    assert!(h.query_by_label("Tavru PDF on GitHub").is_none());
     // Not remembered: a fresh app shows the card again.
     assert!(!PdfCraftApp::new().community_card_closed);
 }
@@ -58,9 +58,9 @@ fn about_dialog_shows_parchfold_and_the_repository() {
         app.open_bytes("one.pdf", None, pdf.to_vec()).unwrap();
         app.dialog = Some(Dialog::About);
     });
-    assert!(h.query_all_by_label("Parchfold").count() >= 1);
+    assert!(h.query_all_by_label("Tavru PDF").count() >= 1);
     assert!(h.query_by_label("ArtCraft").is_none());
-    h.get_by_label("Parchfold on GitHub").click();
+    h.get_by_label("Tavru PDF on GitHub").click();
     h.run_steps(2);
     assert_eq!(h.state().last_opened_url.as_deref(), Some(links::GITHUB));
 }

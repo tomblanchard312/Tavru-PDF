@@ -13,8 +13,8 @@ fn main() {
         return;
     }
     let mut res = winresource::WindowsResource::new();
-    res.set("ProductName", "Parchfold")
-        .set("FileDescription", "Parchfold command-line tool")
+    res.set("ProductName", "Tavru PDF")
+        .set("FileDescription", "Tavru PDF command-line tool")
         .set("LegalCopyright", "Copyright (c) the PdfCraft contributors. MIT OR Apache-2.0.")
         .set("OriginalFilename", "parchfold-cli.exe")
         .set("InternalName", "parchfold-cli");
