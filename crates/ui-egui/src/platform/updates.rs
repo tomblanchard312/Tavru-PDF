@@ -120,7 +120,7 @@ pub(crate) fn dialog(app: &mut PdfCraftApp, ctx: &egui::Context) {
         });
         ui.add_space(8.0);
         if !updates_installable() {
-            ui.label(tl!("Parchfold does not install updates yet."));
+            ui.label(tl!("Tavru PDF does not install updates yet."));
             ui.label(egui::RichText::new(tl!("This build will not download or install a PdfCraft release.")).color(t.text_muted));
         }
         #[cfg(not(target_arch = "wasm32"))]
