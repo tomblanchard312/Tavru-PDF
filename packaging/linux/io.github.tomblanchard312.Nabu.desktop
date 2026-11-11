@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Parchfold
+Name=Tavru PDF
 GenericName=PDF Editor
 Comment=Read, organize, combine, split and secure PDFs
 Exec=parchfold %U

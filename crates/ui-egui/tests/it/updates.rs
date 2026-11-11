@@ -39,7 +39,7 @@ fn check_for_updates_explains_that_installation_is_off() {
     h.run_steps(2);
     h.state_mut().execute("help.check_updates");
     h.run_steps(4);
-    h.get_by_label_contains("Parchfold does not install updates yet.");
+    h.get_by_label_contains("Tavru PDF does not install updates yet.");
     h.get_by_label_contains("will not download or install a PdfCraft release");
     assert!(h.query_by_label("DOWNLOAD").is_none());
     assert!(h.query_by_label_contains("is available").is_none());
@@ -68,5 +68,5 @@ fn a_release_source_is_never_asked() {
     h.state_mut().execute("help.check_updates");
     h.run_steps(6);
     assert_eq!(calls.load(std::sync::atomic::Ordering::SeqCst), 0);
-    h.get_by_label_contains("Parchfold does not install updates yet.");
+    h.get_by_label_contains("Tavru PDF does not install updates yet.");
 }

@@ -5,7 +5,7 @@ use icu_properties::props::Script;
 use std::path::{Path, PathBuf};
 
 /// User-facing product name. Crate and binary names stay `pdfcraft`.
-pub const PRODUCT: &str = "Parchfold";
+pub const PRODUCT: &str = "Tavru PDF";
 
 /// Identifier kept for callers that still key off the upstream crate name.
 pub const APP: &str = "pdfcraft";
@@ -26,7 +26,7 @@ pub struct Link {
 }
 
 /// In the order they are shown.
-pub const LINKS: &[Link] = &[Link { command: "help.github", label: "Parchfold on GitHub", url: GITHUB, icon: "code-xml" }];
+pub const LINKS: &[Link] = &[Link { command: "help.github", label: "Tavru PDF on GitHub", url: GITHUB, icon: "code-xml" }];
 
 pub fn for_command(id: &str) -> Option<&'static Link> {
     LINKS.iter().find(|l| l.command == id)

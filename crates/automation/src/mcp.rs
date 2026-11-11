@@ -153,7 +153,7 @@ impl McpServer {
                 Ok(json!({
                     "protocolVersion": version,
                     "capabilities": { "tools": { "listChanged": false }, "resources": { "listChanged": false, "subscribe": false } },
-                    "serverInfo": { "name": "parchfold", "title": "Parchfold", "version": env!("CARGO_PKG_VERSION"), "websiteUrl": pdfcraft_engine::links::GITHUB },
+                    "serverInfo": { "name": "parchfold", "title": "Tavru PDF", "version": env!("CARGO_PKG_VERSION"), "websiteUrl": pdfcraft_engine::links::GITHUB },
                     "instructions": if self.compact { format!("{INSTRUCTIONS}{COMPACT_INSTRUCTIONS}") } else { INSTRUCTIONS.to_string() },
                 }))
             }

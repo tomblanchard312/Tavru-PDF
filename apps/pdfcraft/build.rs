@@ -22,8 +22,8 @@ fn main() {
     res.set_icon("../../assets/app-icon/pdfcraft.ico")
         .set_icon_with_id("../../assets/app-icon/pdfcraft-document.ico", "2")
         .set_manifest(windows_manifest::WINDOWS_MANIFEST)
-        .set("ProductName", "Parchfold")
-        .set("FileDescription", "Parchfold PDF workbench")
+        .set("ProductName", "Tavru PDF")
+        .set("FileDescription", "Tavru PDF workbench")
         .set("LegalCopyright", "Copyright (c) the PdfCraft contributors. MIT OR Apache-2.0.")
         .set("OriginalFilename", "parchfold.exe")
         .set("InternalName", "parchfold");
