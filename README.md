@@ -57,6 +57,10 @@
 
 ---
 
+![Tavru PDF home page with the document tool panel](docs/images/tavru-mvp-vm.png)
+
+*Captured from an installed TavruOS MVP in a disposable VM.*
+
 ## Community
 
 Parchfold's source and issues are at [github.com/tomblanchard312/Parchfold](https://github.com/tomblanchard312/Parchfold). The title bar has a GitHub button.
