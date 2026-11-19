@@ -1,7 +1,7 @@
 # Parchfold UI design
 
 Parchfold serves people reading, editing, reviewing, and signing PDFs. It follows the
-[Eridu Design System](https://github.com/tomblanchard312/TavruOS/tree/53133f86434676a5bdcb249556d3c11b50e600e4/design-system)
+[Shared design system](https://github.com/tomblanchard312/TavruOS/tree/53133f86434676a5bdcb249556d3c11b50e600e4/design-system)
 workspace pattern. The toolbar and document tabs sit above a central PDF canvas, with
 tool navigation and inspectors beside it. Use the File menu or Ctrl+O to open a
 document, and the command palette to find tools by name. Native menu shortcuts follow
@@ -19,5 +19,5 @@ with existing language fallbacks. Desktop theme and interface scaling remain use
 
 Parchfold supports Linux, FreeBSD, Windows, macOS, and the web. Platform-specific acceptance is tracked separately. The home heading uses Source Serif 4
 Display and page and zoom counters use Inter Tabular. Shared widget and menu spacing
-follow the Eridu grid. Controls use Phosphor Regular SVGs and Phosphor Regular and Fill glyphs. The Windows PDF association artwork is attributed separately. Native accessibility
+follow the shared grid. Controls use Phosphor Regular SVGs and Phosphor Regular and Fill glyphs. The Windows PDF association artwork is attributed separately. Native accessibility
 and visual review are tracked separately from the automated UI harness.
