@@ -170,9 +170,9 @@ digit-prefixed `*.conf` files, in lexical order; backups and disabled files are 
 limits each config to 1 MiB, visits at most 256 config files/directories, and bounds include depth
 to 16 and directory entries to 32,768. Cyclic includes are skipped.
 
-### Eridu UI typography
+### Tavru UI typography
 
-Parchfold maps the [Eridu Typography v1 roles](https://github.com/tomblanchard312/TavruOS/issues/27)
+Parchfold maps the [Shared typography roles](https://github.com/tomblanchard312/TavruOS/issues/27)
 to the shared egui style. Body text uses Inter Regular, menus and standard controls use Inter
 Medium, and in-app document tabs and headings use Inter SemiBold. Monospace UI uses JetBrains Mono.
 The system owns native window decorations and native menus. Parchfold's interface scale preference

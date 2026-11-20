@@ -1,9 +1,13 @@
-# Parchfold product name
+# Tavru PDF product name
 
-Nabu is now **Parchfold**, effective 2026-10-29.
+The public name is **Tavru PDF**. Earlier public names were Nabu and Parchfold. Window titles, About and help use Tavru PDF (`pdfcraft_engine::links::PRODUCT`). The repository is `tomblanchard312/Tavru-PDF`.
 
-Window titles, About/help text, translated product labels and installer/launcher display names use the new name. Existing settings/recovery folders, application IDs, installation registry keys, command names, automation namespaces and repository URLs are retained for compatibility. Existing saved documents and Oqelith model data are not moved.
+These identifiers are unchanged:
 
-Approved blue-and-gold purpose-based icons identify the product without relying on its first letter. Original upstream copyright and licence notices are retained.
+- Cargo library crates stay `pdfcraft-*`.
+- The desktop package is `parchfold` and the CLI is `parchfold-cli`, including `parchfold-cli mcp`.
+- Application id stays `io.github.tomblanchard312.Nabu`.
+- `crates/engine/src/links.rs` still sets `GITHUB` to `https://github.com/tomblanchard312/Parchfold`.
+- The icon file is still `assets/app-icon/nabu-logo.png`.
 
-New desktop launcher aliases are provided locally as `parchfold`; existing command names continue to work.
+Saved documents and settings are not moved. Upstream PdfCraft copyright and attribution stay in NOTICE. This fork does not install PdfCraft releases from getartcraft.com.

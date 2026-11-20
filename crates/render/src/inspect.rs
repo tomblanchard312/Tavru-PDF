@@ -1,9 +1,10 @@
 //! Document inspection: everything panels need that is not pixels.
 //!
-//! Page geometry comes from hayro (which resolves inheritance and rotation); the rest comes from
-//! the lazy COS reader through a read-only lopdf object adapter. The original lopdf loader
-//! remains the compatibility fallback. When neither can inspect a renderable file, panels
-//! are empty and `warnings` says why.
+//! Page geometry comes from the COS document already opened for editing. The renderer parser
+//! remains the fallback when that document needed repair, is encrypted, or its page tree does
+//! not agree with the structure walk. The rest comes from the lazy COS reader through a
+//! read-only lopdf object adapter. The original lopdf loader remains the compatibility
+//! fallback. When neither can inspect a renderable file, panels are empty and `warnings` says why.
 
 use std::cell::OnceCell;
 use std::collections::hash_map::Entry;
@@ -25,6 +26,7 @@ use crate::structure::{LazyStructure, Structure};
 
 mod annotations;
 mod core;
+mod geometry;
 mod model;
 mod navigation;
 mod resources;
@@ -32,7 +34,7 @@ mod resources;
 #[cfg(test)]
 use annotations::{MAX_ANNOTATION_BYTES, MAX_LINK_ATTACHMENT_TEXT_BYTES, MAX_REMOTE_FILE_SPEC_BYTES, retained};
 use core::Inspector;
-pub use core::{check_pages, inspect, pretty_date};
+pub use core::{check_pages, inspect, inspect_with, pretty_date};
 #[cfg(test)]
 use core::{inspect_structure, spend};
 pub use model::{

@@ -1,7 +1,7 @@
-> **Product name:** Tavru PDF (formerly Parchfold, Nabu). Existing application IDs, settings directories, command names and repository URLs remain compatible.
+> **Product name:** Tavru PDF. Earlier public names were Parchfold and Nabu. Repository: [github.com/tomblanchard312/Tavru-PDF](https://github.com/tomblanchard312/Tavru-PDF). Crates stay `pdfcraft`. The desktop and CLI packages are still `parchfold` and `parchfold-cli`. The application id is still `io.github.tomblanchard312.Nabu`. The in-app GitHub constant in `crates/engine/src/links.rs` still opens the previous Parchfold URL.
 
 <p align="center">
-  <img src="assets/app-icon/nabu-logo.png" width="460" alt="Tavru PDF: blue folded-document N logo">
+  <img src="assets/app-icon/nabu-logo.png" width="460" alt="Tavru PDF icon">
 </p>
 
 <h1 align="center">Tavru PDF</h1>
@@ -23,7 +23,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/tomblanchard312/Parchfold"><b>github.com/tomblanchard312/Parchfold</b></a>
+  <a href="https://github.com/tomblanchard312/Tavru-PDF"><b>github.com/tomblanchard312/Tavru-PDF</b></a>
 </p>
 
 <br>
@@ -36,7 +36,8 @@
 
 > [!NOTE]
 > Tavru PDF is a fork of [PdfCraft](https://github.com/storytold/pdfcraft). It does not install
-> PdfCraft releases. Source and issues: [github.com/tomblanchard312/Parchfold](https://github.com/tomblanchard312/Parchfold).
+> PdfCraft releases. Source and issues: [github.com/tomblanchard312/Tavru-PDF](https://github.com/tomblanchard312/Tavru-PDF).
+> GitHub redirects the previous Parchfold name. The Help menu still opens that previous URL.
 
 <p align="center">
   <a href="#highlights">Highlights</a> ·
@@ -59,7 +60,7 @@
 
 ## Community
 
-Parchfold's source and issues are at [github.com/tomblanchard312/Parchfold](https://github.com/tomblanchard312/Parchfold). The title bar has a GitHub button.
+Tavru PDF's source and issues are at [github.com/tomblanchard312/Tavru-PDF](https://github.com/tomblanchard312/Tavru-PDF). The title bar has a GitHub button, which still follows the previous Parchfold URL stored in the app.
 
 The ArtCraft name and logos are trademarks of the ArtCraft Team. This fork does not ship them. The trademark terms remain in [`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt). Upstream PdfCraft is at [github.com/storytold/pdfcraft](https://github.com/storytold/pdfcraft).
 
@@ -329,7 +330,7 @@ the document or the panels.
 
 ---
 
-[Parchfold UI design and Eridu adoption](docs/ui-design.md)
+[Tavru PDF UI design](docs/ui-design.md)
 
 ## How it's built
 
@@ -369,8 +370,8 @@ PdfCraft is a clean-room implementation. Its behaviour comes from the ISO 32000 
 Building needs Rust 1.95 or later.
 
 ```sh
-git clone --branch main https://github.com/tomblanchard312/Parchfold.git parchfold
-cd parchfold
+git clone --branch main https://github.com/tomblanchard312/Tavru-PDF.git Tavru-PDF
+cd Tavru-PDF
 cargo xtask models                                # fetch the OCR models Scan & OCR needs (release builds include them)
 cargo run --release -p parchfold -- some.pdf     # desktop app
 cargo xtask demo-pdf                              # build the showcase PDF used in these screenshots
@@ -427,9 +428,7 @@ The summary is in **[ROADMAP.md](ROADMAP.md)**; the full assessment by dimension
 
 ## Downloads
 
-**New to PdfCraft?** Download it from the [PdfCraft page on getartcraft.com](https://getartcraft.com/apps/pdfcraft). That's the easiest way to install it.
-
-**Want a specific build or format?** On GitHub, the [latest release](https://github.com/storytold/pdfcraft/releases/latest) has every build listed below, and [all releases](https://github.com/storytold/pdfcraft/releases) has earlier versions and their notes. `<ver>` in the file names is the version number, and `SHA256SUMS.txt` lists a checksum for every file.
+Tavru PDF has no signed release feed of its own. Build it from this repository. The installers below are the upstream PdfCraft release layout and are not Tavru PDF downloads. PdfCraft itself is published at [getartcraft.com](https://getartcraft.com/apps/pdfcraft) and [github.com/storytold/pdfcraft](https://github.com/storytold/pdfcraft/releases). `<ver>` in those upstream file names is the version number.
 
 ### Windows
 
@@ -562,7 +561,7 @@ And [**ArtCraft**](https://getartcraft.com/) itself, our AI image and video stud
 </p>
 
 <p align="center">
-  <a href="https://github.com/tomblanchard312/Parchfold"><b>github.com/tomblanchard312/Parchfold</b></a>
+  <a href="https://github.com/tomblanchard312/Tavru-PDF"><b>github.com/tomblanchard312/Tavru-PDF</b></a>
 </p>
 
 ---
@@ -582,7 +581,7 @@ this license. They have been removed from this fork. The terms are in
 [`docs/brand/LICENSE-brand.txt`](docs/brand/LICENSE-brand.txt).
 
 <p align="center">
-  <sub>Parchfold, forked from PdfCraft. Copyright (c) 2026 ArtCraft Team and the PdfCraft contributors, and the Parchfold contributors.</sub>
+  <sub>Tavru PDF, forked from PdfCraft. Earlier names: Parchfold and Nabu. Copyright (c) 2026 ArtCraft Team and the PdfCraft contributors.</sub>
 </p>
 
 The Tools panel sits on the left, or on the right with Preferences ▸ Tools panel side. The rail stays at the right edge and opens one side panel beside it. Drag a panel's inner edge to resize it; widths are remembered. F4 shows or hides the side panel and Shift+F4 the Tools panel (also in the View menu); View ▸ Reset side panels restores the default arrangement.

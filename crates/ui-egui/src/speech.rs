@@ -1,6 +1,7 @@
 use crate::PdfCraftApp;
 use enki_speech_ui::{Action, VoiceCommand};
 pub(crate) fn show(app: &mut PdfCraftApp, ctx: &egui::Context) {
+    crate::daemon::launch_when_open(app.speech.open);
     let scope = app
         .active_ids()
         .and_then(|(i, id)| {

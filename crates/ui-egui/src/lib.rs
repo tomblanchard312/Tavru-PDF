@@ -667,4 +667,6 @@ pub struct PdfCraftApp {
 }
 
 #[cfg(not(target_arch = "wasm32"))]
+mod daemon;
+#[cfg(not(target_arch = "wasm32"))]
 mod speech;

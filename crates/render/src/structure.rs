@@ -144,6 +144,11 @@ pub(crate) struct LazyStructure {
 impl LazyStructure {
     pub(crate) fn new(bytes: Arc<Vec<u8>>, password: Option<&str>) -> std::result::Result<Self, String> {
         let source = Document::open_with_stream_limit(bytes, password, 256 << 20).map_err(|e| e.to_string())?;
+        Self::from_source(source)
+    }
+
+    /// Structure view of a document this process already opened. Same repair rule as [`Self::new`].
+    pub(crate) fn from_source(source: Document) -> std::result::Result<Self, String> {
         if !source.repair_log().is_empty() {
             return Err("the structure requires compatibility repair".into());
         }

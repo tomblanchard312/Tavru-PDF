@@ -3,7 +3,7 @@
 use std::sync::{Arc, OnceLock};
 
 use pdfcraft_cos::{SaveOptions, write_incremental};
-use pdfcraft_render::{DocInfo, OpenError, RenderConfig, RenderPool, inspect};
+use pdfcraft_render::{DocInfo, OpenError, RenderConfig, RenderPool, inspect, inspect_with};
 
 use crate::history::{Editor, Keys, TextBlocksCache};
 use crate::{
@@ -93,8 +93,13 @@ impl Session {
     ) -> Result<PreparedDocument, OpenError> {
         let cos = std::panic::catch_unwind(|| pdfcraft_cos::Document::open_with_password(bytes.clone(), password));
         // The renderer authenticates on its own. It cannot use the owner password of R2–R4
-        // files, so give it the user password that owner authentication recovers.
-        let (info, render_password) = match inspect(bytes.clone(), password) {
+        // files, so give it the user password that owner authentication recovers. Unencrypted
+        // files reuse this parse for page boxes instead of parsing the file again.
+        let opened = match &cos {
+            Ok(Ok(doc)) => Some(doc),
+            _ => None,
+        };
+        let (info, render_password) = match inspect_with(bytes.clone(), password, opened) {
             Ok(info) => (info, password.map(str::to_owned)),
             Err(OpenError::WrongPassword) => {
                 let user = match &cos {

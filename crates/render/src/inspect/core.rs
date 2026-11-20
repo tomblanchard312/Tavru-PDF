@@ -43,7 +43,60 @@ pub fn check_pages(bytes: Arc<Vec<u8>>, password: Option<&str>, expected: usize)
 
 /// Inspect a document. Fails only if the renderer itself cannot open the file (or needs a
 /// password). Never panics: parser crashes are caught and reported.
+///
+/// An unencrypted file whose COS parse needs no repair takes its page boxes from that parse.
+/// Encrypted files, repaired files, and trees this walk cannot follow still go through the
+/// renderer parser.
 pub fn inspect(bytes: Arc<Vec<u8>>, password: Option<&str>) -> Result<DocInfo, OpenError> {
+    inspect_with(bytes, password, None)
+}
+
+/// [`inspect`], using `opened` when it is the document already parsed from `bytes`.
+/// An encrypted `opened` is ignored so the renderer can still reject an owner password it
+/// cannot draw with.
+pub fn inspect_with(bytes: Arc<Vec<u8>>, password: Option<&str>, opened: Option<&pdfcraft_cos::Document>) -> Result<DocInfo, OpenError> {
+    let fast = catch_unwind(AssertUnwindSafe(|| {
+        let owned;
+        let document = if let Some(opened) = opened {
+            opened
+        } else {
+            owned = pdfcraft_cos::Document::open_with_stream_limit(bytes.clone(), password, LOAD_STREAM_LIMIT).ok()?;
+            &owned
+        };
+        pages_from_cos(&bytes, password, document)
+    }));
+    if let Ok(Some(info)) = fast {
+        return Ok(info);
+    }
+    inspect_with_renderer(bytes, password)
+}
+
+fn pages_from_cos(bytes: &Arc<Vec<u8>>, password: Option<&str>, document: &pdfcraft_cos::Document) -> Option<DocInfo> {
+    if document.security().is_some() || !document.repair_log().is_empty() {
+        return None;
+    }
+    let pages = super::geometry::page_infos(document)?;
+    let structure = LazyStructure::from_source(document.clone()).ok()?;
+    if structure.page_ids().len() != pages.len() {
+        return None;
+    }
+    let mut info = DocInfo { file_size: bytes.len(), pdf_version: document.version().to_string(), pages, ..Default::default() };
+    let bytes = bytes.clone();
+    inspect_structure(&mut info, |tmp| {
+        let mut filled = DocInfo { pages: tmp.pages.clone(), ..Default::default() };
+        Inspector::new(&structure).fill(&mut filled);
+        if structure.failed() {
+            let doc = Document::load_mem_with_options(&bytes, load_options(password)).map_err(|e| e.to_string())?;
+            Inspector::new(&doc).fill(tmp);
+            return Ok(());
+        }
+        *tmp = filled;
+        Ok(())
+    });
+    Some(info)
+}
+
+pub(super) fn inspect_with_renderer(bytes: Arc<Vec<u8>>, password: Option<&str>) -> Result<DocInfo, OpenError> {
     let pdf = catch_unwind(AssertUnwindSafe(|| Pdf::new_with_password(bytes.clone(), password.unwrap_or(""))))
         .map_err(|p| OpenError::Invalid(format!("the parser crashed: {}", crate::raster::panic_message(&p))))?
         .map_err(|e| match e {
